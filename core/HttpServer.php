@@ -46,7 +46,7 @@ class HttpServer {
     
     public function onWorkerStart()
     {
-        $this->app = (require "/Users/chengxiaoli/Documents/wcworkspace/cat/index.php");
+        $this->app = (require  dirname(__FILE__) . '/../index.php');
     }
     
     public function onConnect()
