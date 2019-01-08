@@ -12,6 +12,11 @@ class Application
     
     public $response;
     
+    /**
+     * 初始化配置
+     *
+     * @return Application
+     */
     public static function create()
     {
         return new self();
@@ -19,12 +24,10 @@ class Application
     
     public function run()
     {
-        require_once dirname(__FILE__) . '/Route.php';
-        require_once dirname(__FILE__) . '/../controller/HabitController.php';
-        
         $uri = $this->request->server['request_uri'];
         list($controller, $action) = Route::onRoute($uri);
         $class = new $controller($this->request, $this->response);
         $class->$action();
     }
+    
 }

@@ -5,8 +5,7 @@
  * Date: 2019/1/5
  * Time: 下午4:09
  */
-
-require_once dirname(__FILE__) . '/BaseController.php';
+namespace controller;
 
 class HabitController extends BaseController
 {

@@ -5,6 +5,7 @@
  * Date: 2019/1/5
  * Time: 下午4:12
  */
+namespace controller;
 
 class BaseController
 {
@@ -18,8 +19,4 @@ class BaseController
         $this->response = $response;
     }
     
-    public function run()
-    {
-    
-    }
 }

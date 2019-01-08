@@ -6,7 +6,7 @@
  * Time: 下午4:07
  */
 
-require_once dirname(__FILE__) . '/core/Application.php';
+require_once dirname(__FILE__) . '/vendor/autoload.php';
 
 define('APP_PATH', dirname(__FILE__));
 
