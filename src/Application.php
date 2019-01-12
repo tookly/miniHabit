@@ -44,11 +44,11 @@ class Application
             $routeInfo = self::$dispatcher->dispatch($httpMethod, $uri);
             switch ($routeInfo[0]) {
                 case FastRoute\Dispatcher::NOT_FOUND:
-                    throw new Exception(...Code::NOT_FOUND);
+                    throw new HabitException(Code::NOT_FOUND);
                     break;
                 case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
                     $allowedMethods = $routeInfo[1];
-                    throw new Exception(...Code::NOT_FOUND);
+                    throw new HabitException(Code::METHOD_NOT_ALLOWED);
                     break;
                 case FastRoute\Dispatcher::FOUND: // 找到对应的方法
                     list($controller, $action) = $routeInfo[1]; // 获得处理函数

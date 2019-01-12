@@ -7,5 +7,12 @@
  */
 
 class Code {
-    const NOT_FOUND = ['not fount', 404];
+    # -1 undefined error
+    const ERROR = -1;
+    
+    # 0-10000 system error
+    const NOT_FOUND = [404, 'not fount'];
+    const METHOD_NOT_ALLOWED = [405, 'method not allowed'];
+    
+    # 10000- logic error
 };

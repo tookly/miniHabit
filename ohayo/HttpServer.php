@@ -61,8 +61,8 @@ class HttpServer {
     
     public function onRequest($request, $response)
     {
-        $this->app->request = $request;
-        $this->app->response = $response;
+        $this->app->request = new Request($request);
+        $this->app->response = new Response($response);
         $this->app->run();
     }
     
