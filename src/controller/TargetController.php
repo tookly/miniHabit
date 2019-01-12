@@ -7,27 +7,28 @@
  */
 namespace controller;
 
-class HabitController extends BaseController
+class TargetController extends BaseController
 {
-    public function actionTarget()
+    public function info()
     {
         $data = json_encode(['code' => 0, 'message' => 'success']);
         $this->response->end($data);
     }
     
-    public function actionSign()
+    public function set()
+    {
+        $data = json_encode(['code' => 0, 'message' => 'success']);
+        $this->response->end($data);
+    }
+    
+    public function sign()
     {
     
     }
     
-    public function actionNote()
+    public function statistics()
     {
     
     }
     
-    public function actionStatistic()
-    {
-    
-    }
-
 }

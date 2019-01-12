@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "": ["src/", "neil/"]
+            "": ["src/", "src/config", "ohayo"]
         }
     }
 }
