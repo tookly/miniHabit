@@ -22,6 +22,11 @@ class TargetController extends BaseController
         $this->response->end($data);
     }
     
+    public function note()
+    {
+    
+    }
+    
     public function sign()
     {
     
