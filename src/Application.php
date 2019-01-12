@@ -61,8 +61,8 @@ class Application
                     break;
             }
         } catch (\Exception $e) {
-            $data = json_encode(['code' => $e->getCode(), 'message' => $e->getMessage()]);
-            $this->response->end($data);
+            $data = json_encode(['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            $this->response->send($data);
         }
 
     }
