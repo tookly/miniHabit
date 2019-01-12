@@ -7,16 +7,32 @@
  */
 namespace controller;
 
+use Code;
+
 class BaseController
 {
+    /**
+     * @var \Request
+     */
     public $request;
     
+    /**
+     * @var \Response
+     */
     public $response;
     
     public function __construct($request, $response)
     {
         $this->request = $request;
         $this->response = $response;
+    }
+    
+    public function sendSuccess($data)
+    {
+        $res['code'] = Code::SUCCESS;
+        $res['message'] = 'success';
+        $res['data'] = $data;
+        $this->response->send($res);
     }
     
 }

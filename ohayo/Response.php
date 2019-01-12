@@ -8,11 +8,19 @@
 
 class Response extends \Swoole\Http\Response
 {
+    /**
+     * @var \Swoole\Http\Response
+     */
+    public $source;
+    
     public function __construct($response)
     {
-        $data = get_object_vars($response);
-        foreach ($data as $key => $value) {
-            $this->{$key} = $value;
-        }
+        $this->source = $response;
     }
+    
+    public function send($data)
+    {
+        $this->source->end(json_encode($data));
+    }
+    
 }

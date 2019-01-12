@@ -12,8 +12,8 @@ class TargetController extends BaseController
     public function info()
     {
         $targetId = $this->request->get['targetId'];
-        $data = json_encode(['code' => 0, 'message' => 'success', 'data' => $targetId]);
-        $this->response->end($data);
+        $data['targetId'] = $targetId;
+        $this->sendSuccess($data);
     }
     
     public function set()
