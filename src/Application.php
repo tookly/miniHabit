@@ -6,7 +6,7 @@
  * Time: 下午4:46
  */
 
-use Swoole\Coroutine;
+//use Swoole\Coroutine;
 
 class Application
 {

@@ -26,8 +26,11 @@ class ComposerStaticInit6892c9e2dc1c33bbc0883c81dc5cb7a3
 
     public static $fallbackDirsPsr4 = array (
         0 => __DIR__ . '/../..' . '/src',
-        1 => __DIR__ . '/../..' . '/src/config',
-        2 => __DIR__ . '/../..' . '/ohayo',
+        1 => __DIR__ . '/../..' . '/ohayo',
+    );
+
+    public static $classMap = array (
+        'Code' => __DIR__ . '/../..' . '/src/config/Code.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -36,6 +39,7 @@ class ComposerStaticInit6892c9e2dc1c33bbc0883c81dc5cb7a3
             $loader->prefixLengthsPsr4 = ComposerStaticInit6892c9e2dc1c33bbc0883c81dc5cb7a3::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit6892c9e2dc1c33bbc0883c81dc5cb7a3::$prefixDirsPsr4;
             $loader->fallbackDirsPsr4 = ComposerStaticInit6892c9e2dc1c33bbc0883c81dc5cb7a3::$fallbackDirsPsr4;
+            $loader->classMap = ComposerStaticInit6892c9e2dc1c33bbc0883c81dc5cb7a3::$classMap;
 
         }, null, ClassLoader::class);
     }
