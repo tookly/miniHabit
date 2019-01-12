@@ -7,5 +7,5 @@
  */
 
 class Code {
-    const NOT_FOUND = [404, 'not fount'];
+    const NOT_FOUND = ['not fount', 404];
 };

@@ -27,7 +27,7 @@ class Application
     public static function create()
     {
         self::$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-            $r->get('/flag/info', ['\controller\TargetController', 'info']);
+            $r->get('/target/info', ['\controller\TargetController', 'info']);
         });
         return new self();
     }
@@ -40,21 +40,31 @@ class Application
             $uri = substr($uri, 0, $pos);
         }
         $uri = rawurldecode($uri);
-        $routeInfo = self::$dispatcher->dispatch($httpMethod, $uri);
-        switch ($routeInfo[0]) {
-            case FastRoute\Dispatcher::NOT_FOUND:
-                throw new Exception(...Code::NOT_FOUND);
-            case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-                $allowedMethods = $routeInfo[1];
-                throw new Exception(...Code::NOT_FOUND);
-            case FastRoute\Dispatcher::FOUND: // 找到对应的方法
-                $handler = $routeInfo[1]; // 获得处理函数
-                $vars = $routeInfo[2]; // 获取请求参数
-                $controller = new $handler[0]($this->request, $this->response);
-//                $controller->$handler[1]($vars);
-                Coroutine::call_user_func(array($controller, $handler[1]), $vars);
-                break;
+        try {
+            $routeInfo = self::$dispatcher->dispatch($httpMethod, $uri);
+            switch ($routeInfo[0]) {
+                case FastRoute\Dispatcher::NOT_FOUND:
+                    throw new Exception(...Code::NOT_FOUND);
+                    break;
+                case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+                    $allowedMethods = $routeInfo[1];
+                    throw new Exception(...Code::NOT_FOUND);
+                    break;
+                case FastRoute\Dispatcher::FOUND: // 找到对应的方法
+                    list($controller, $action) = $routeInfo[1]; // 获得处理函数
+                    var_dump($controller);
+                    $vars = $routeInfo[2]; // 获取请求参数
+                    var_dump($vars);
+                    $controller = new $controller($this->request, $this->response);
+                    $controller->$action($vars);
+//                    Coroutine::call_user_func(array($controller, $handler[1]), $vars);  这个方法不存在？？
+                    break;
+            }
+        } catch (\Exception $e) {
+            $data = json_encode(['code' => $e->getCode(), 'message' => $e->getMessage()]);
+            $this->response->end($data);
         }
+
     }
     
 }

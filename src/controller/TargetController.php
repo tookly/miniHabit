@@ -11,7 +11,8 @@ class TargetController extends BaseController
 {
     public function info()
     {
-        $data = json_encode(['code' => 0, 'message' => 'success']);
+        $targetId = $this->request->get['targetId'];
+        $data = json_encode(['code' => 0, 'message' => 'success', 'data' => $targetId]);
         $this->response->end($data);
     }
     
