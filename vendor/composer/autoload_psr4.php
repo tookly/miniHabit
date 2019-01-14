@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    '\\' => array($vendorDir . '/copyrenzhe/phptaf-ide-helper/src'),
     'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
     '' => array($baseDir . '/src', $baseDir . '/ohayo'),
 );

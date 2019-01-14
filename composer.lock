@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa23a3792383898b4d5eee449b6d363d",
+    "content-hash": "fcbe06f54a048298c0f1df2d7b69f8fb",
     "packages": [
         {
             "name": "nikic/fast-route",
@@ -53,10 +53,57 @@
             "time": "2018-02-13T20:26:39+00:00"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "copyrenzhe/phptaf-ide-helper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yuewenweb/phptaf-ide-helper.git",
+                "reference": "2b44979f8710b3d6d4a5748f011b15eaeefc50d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yuewenweb/phptaf-ide-helper/zipball/2b44979f8710b3d6d4a5748f011b15eaeefc50d7",
+                "reference": "2b44979f8710b3d6d4a5748f011b15eaeefc50d7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "copyrenzhe",
+                    "email": "copyrenzhe@gmail.com"
+                }
+            ],
+            "description": "Phptaf IDE Helper, generates classes and functions, to improve auto-completion",
+            "keywords": [
+                "TAF",
+                "helper",
+                "ide",
+                "jce",
+                "phpstorm",
+                "phptaf"
+            ],
+            "time": "2017-06-09T04:39:44+00:00"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "copyrenzhe/phptaf-ide-helper": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

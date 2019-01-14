@@ -11,6 +11,10 @@ class ComposerStaticInit6892c9e2dc1c33bbc0883c81dc5cb7a3
     );
 
     public static $prefixLengthsPsr4 = array (
+        '\\' => 
+        array (
+            '\\' => 1,
+        ),
         'F' => 
         array (
             'FastRoute\\' => 10,
@@ -18,6 +22,10 @@ class ComposerStaticInit6892c9e2dc1c33bbc0883c81dc5cb7a3
     );
 
     public static $prefixDirsPsr4 = array (
+        '\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/copyrenzhe/phptaf-ide-helper/src',
+        ),
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',

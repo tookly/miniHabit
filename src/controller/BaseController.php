@@ -27,6 +27,16 @@ class BaseController
         $this->response = $response;
     }
     
+    public function get($key, $default = null)
+    {
+        $this->request->get['targetId'];
+    }
+    
+    public function post($key, $default = null)
+    {
+    
+    }
+    
     public function sendSuccess($data)
     {
         $res['code'] = Code::SUCCESS;
