@@ -29,18 +29,24 @@ class BaseController
     
     public function get($key, $default = null)
     {
-        $this->request->get['targetId'];
+        return $this->request->get[$key] ?? $default;
     }
     
     public function post($key, $default = null)
     {
-    
+        return $this->request->post[$key] ?? $default;
     }
     
-    public function sendSuccess($data)
+    public function sendSuccess($data = [])
     {
-        $res['code'] = Code::SUCCESS;
-        $res['message'] = 'success';
+        list($res['code'], $res['message']) = Code::SUCCESS;
+        $res['data'] = $data;
+        $this->response->send($res);
+    }
+    
+    public function sendParamErr($data = [])
+    {
+        list($res['code'], $res['message']) = Code::ERROR_PARAMS;
         $res['data'] = $data;
         $this->response->send($res);
     }

@@ -28,6 +28,10 @@ class Application
     {
         self::$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
             $r->get('/target/info', ['\controller\TargetController', 'info']);
+            $r->get('/target/set', ['\controller\TargetController', 'set']);
+            $r->get('/target/notes', ['\controller\TargetController', 'notes']);
+            $r->get('/target/note', ['\controller\TargetController', 'note']);
+            $r->get('/target/sign', ['\controller\TargetController', 'sign']);
         });
         return new self();
     }
