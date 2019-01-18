@@ -12,7 +12,8 @@
     },
     "autoload": {
         "classmap": [
-            "src/config/Code.php"
+            "src/config/Code.php",
+            "src/config/Config.php"
         ],
         "psr-4": {
             "": ["src/", "ohayo/"]

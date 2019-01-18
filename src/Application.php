@@ -20,7 +20,7 @@ class Application
     public static $dispatcher;
     
     /**
-     * 初始化配置
+     * 初始化配置 这里路由配置略蛋疼
      *
      * @return Application
      */
@@ -28,10 +28,10 @@ class Application
     {
         self::$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
             $r->get('/target/info', ['\controller\TargetController', 'info']);
-            $r->get('/target/set', ['\controller\TargetController', 'set']);
+            $r->post('/target/set', ['\controller\TargetController', 'set']);
             $r->get('/target/notes', ['\controller\TargetController', 'notes']);
-            $r->get('/target/note', ['\controller\TargetController', 'note']);
-            $r->get('/target/sign', ['\controller\TargetController', 'sign']);
+            $r->post('/target/note', ['\controller\TargetController', 'note']);
+            $r->post('/target/sign', ['\controller\TargetController', 'sign']);
         });
         return new self();
     }

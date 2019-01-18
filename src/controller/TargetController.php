@@ -5,6 +5,7 @@
  * Date: 2019/1/5
  * Time: 下午4:09
  */
+
 namespace controller;
 
 use component\RedisUtil;
@@ -21,7 +22,7 @@ class TargetController extends BaseController
     public function info()
     {
         $targetId = $this->get('targetId');
-        $data = RedisUtil::doRedis('hGetAll', [self::TARGET_KEY.$targetId]) ?: [];
+        $data = RedisUtil::doRedis('hGetAll', [sprintf(self::TARGET_KEY, $targetId)]) ?: [];
         $this->sendSuccess($data);
     }
     
@@ -35,7 +36,7 @@ class TargetController extends BaseController
             $this->sendParamErr();
         }
         $data['targetId'] = ($targetId = 1);
-        RedisUtil::doRedis('hMSet', [self::TARGET_KEY.$targetId, $data]);
+        RedisUtil::doRedis('hMSet', [sprintf(self::TARGET_KEY, $targetId), $data]);
         $this->sendSuccess($data);
     }
     
@@ -44,8 +45,8 @@ class TargetController extends BaseController
      */
     public function notes()
     {
-        $targetId = $this->post('targetId');
-        $data['lines'] = RedisUtil::doRedis('lRange', [self::TARGET_NOTE_KEY.$targetId, 0, -1]);
+        $targetId = $this->get('targetId');
+        $data['lines'] = RedisUtil::doRedis('lRange', [sprintf(self::TARGET_NOTE_KEY, $targetId), 0, -1]);
         $this->sendSuccess($data);
     }
     
@@ -59,7 +60,7 @@ class TargetController extends BaseController
         if (empty($line)) {
             $this->sendParamErr();
         }
-        RedisUtil::doRedis('rPush', [self::TARGET_NOTE_KEY.$targetId, $line]);
+        RedisUtil::doRedis('rPush', [sprintf(self::TARGET_NOTE_KEY, $targetId), $line]);
         $this->sendSuccess();
     }
     
@@ -81,7 +82,7 @@ class TargetController extends BaseController
     
     public function statistics()
     {
-    
+        $targetId = $this->post('targetId');
     }
     
 }
