@@ -1,0 +1,7 @@
+{
+  "name":"miniHabit",
+  "script":"HttpServer.php",
+  "cwd":"/Users/chengxiaoli/Documents/wcworkspace/miniHabit/ohayo",
+  "exec_mode":"fork",
+  "exec_interpreter":"php"
+}
