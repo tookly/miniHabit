@@ -3,5 +3,8 @@
   "script":"HttpServer.php",
   "cwd":"/home/neil/miniHabit/ohayo",
   "exec_mode":"fork",
-  "exec_interpreter":"php"
+  "exec_interpreter":"php",
+  "env":{
+    "CONFIG_PATH":"/home/neil/miniHabit/config.toml"
+  }
 }

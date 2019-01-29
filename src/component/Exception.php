@@ -6,7 +6,9 @@
  * Time: 下午3:12
  */
 
-class HabitException extends Exception
+namespace component;
+
+class Exception extends \Exception
 {
     
     public function __construct($code, $message = '')

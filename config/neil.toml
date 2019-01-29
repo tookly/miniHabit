@@ -1,0 +1,7 @@
+env="neil"
+
+[redis]
+    [redis.storage]
+        host=127.0.0.1
+        port=6379
+        timeout=3

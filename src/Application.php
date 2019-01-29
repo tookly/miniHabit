@@ -7,6 +7,8 @@
  */
 
 //use Swoole\Coroutine;
+use component\Config;
+use component\Exception;
 
 class Application
 {
@@ -23,9 +25,13 @@ class Application
      * 初始化配置 这里路由配置略蛋疼
      *
      * @return Application
+     * @throws
      */
     public static function create()
     {
+        $configPath = APP_PATH . '/config/' . APP_ENV . '.toml';
+        Config::init((array)Toml::parseFile($configPath));
+        
         self::$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
             $r->get('/target/info', ['\controller\TargetController', 'info']);
             $r->post('/target/set', ['\controller\TargetController', 'set']);
@@ -48,11 +54,11 @@ class Application
             $routeInfo = self::$dispatcher->dispatch($httpMethod, $uri);
             switch ($routeInfo[0]) {
                 case FastRoute\Dispatcher::NOT_FOUND:
-                    throw new HabitException(Code::NOT_FOUND);
+                    throw new Exception(Code::NOT_FOUND);
                     break;
                 case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
                     $allowedMethods = $routeInfo[1];
-                    throw new HabitException(Code::METHOD_NOT_ALLOWED);
+                    throw new Exception(Code::METHOD_NOT_ALLOWED);
                     break;
                 case FastRoute\Dispatcher::FOUND: // 找到对应的方法
                     list($controller, $action) = $routeInfo[1]; // 获得处理函数
@@ -65,7 +71,11 @@ class Application
                     break;
             }
         } catch (\Exception $e) {
-            $data = json_encode(['code' => $e->getCode(), 'message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            $data = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ];
             $this->response->send($data);
         }
 

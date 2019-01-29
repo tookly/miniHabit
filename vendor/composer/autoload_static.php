@@ -38,8 +38,9 @@ class ComposerStaticInit6892c9e2dc1c33bbc0883c81dc5cb7a3
     );
 
     public static $classMap = array (
-        'Code' => __DIR__ . '/../..' . '/src/config/Code.php',
-        'Config' => __DIR__ . '/../..' . '/src/config/Config.php',
+        'Code' => __DIR__ . '/../..' . '/src/component/Code.php',
+        'Toml' => __DIR__ . '/..' . '/leonelquinteros/php-toml/src/Toml.php',
+        'component\\Config' => __DIR__ . '/../..' . '/src/component/Config.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

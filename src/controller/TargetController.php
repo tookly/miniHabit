@@ -8,7 +8,7 @@
 
 namespace controller;
 
-use component\RedisUtil;
+use component\Redis;
 
 class TargetController extends BaseController
 {
@@ -17,17 +17,17 @@ class TargetController extends BaseController
     const TARGET_SIGN_KEY = 'ZSET:TARGET:SIGN:%s';
     
     /**
-     * @throws \HabitException
+     * @throws \exception
      */
     public function info()
     {
         $targetId = $this->get('targetId');
-        $data = RedisUtil::doRedis('hGetAll', [sprintf(self::TARGET_KEY, $targetId)]) ?: [];
+        $data = Redis::instance()->hGetAll(sprintf(self::TARGET_KEY, $targetId)) ?: [];
         $this->sendSuccess($data);
     }
     
     /**
-     * @throws \HabitException
+     * @throws \exception
      */
     public function set()
     {
@@ -36,22 +36,22 @@ class TargetController extends BaseController
             $this->sendParamErr();
         }
         $data['targetId'] = ($targetId = 1);
-        RedisUtil::doRedis('hMSet', [sprintf(self::TARGET_KEY, $targetId), $data]);
+        Redis::instance()->hMSet(sprintf(self::TARGET_KEY, $targetId), $data);
         $this->sendSuccess($data);
     }
     
     /**
-     * @throws \HabitException
+     * @throws \exception
      */
     public function notes()
     {
         $targetId = $this->get('targetId');
-        $data['lines'] = RedisUtil::doRedis('lRange', [sprintf(self::TARGET_NOTE_KEY, $targetId), 0, -1]);
+        $data['lines'] = Redis::instance()->lRange(sprintf(self::TARGET_NOTE_KEY, $targetId), 0, -1);
         $this->sendSuccess($data);
     }
     
     /**
-     * @throws \HabitException
+     * @throws \exception
      */
     public function note()
     {
@@ -60,12 +60,12 @@ class TargetController extends BaseController
         if (empty($line)) {
             $this->sendParamErr();
         }
-        RedisUtil::doRedis('rPush', [sprintf(self::TARGET_NOTE_KEY, $targetId), $line]);
+        Redis::instance()->rPush(sprintf(self::TARGET_NOTE_KEY, $targetId), $line);
         $this->sendSuccess();
     }
     
     /**
-     * @throws \HabitException
+     * @throws \exception
      */
     public function sign()
     {
@@ -76,7 +76,7 @@ class TargetController extends BaseController
         }
         $signKey = sprintf(self::TARGET_SIGN_KEY, $targetId);
         $date = date('Ymd', time());
-        RedisUtil::doRedis('zIncrBy', [$signKey, $unit, $date]);
+        Redis::instance()->zIncrBy($signKey, $unit, $date);
         $this->sendSuccess();
     }
     

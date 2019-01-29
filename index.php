@@ -9,5 +9,6 @@
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 
 define('APP_PATH', dirname(__FILE__));
+define('APP_ENV', getenv('ENV'));
 
 return Application::create();

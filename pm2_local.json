@@ -3,5 +3,9 @@
   "script":"HttpServer.php",
   "cwd":"/Users/chengxiaoli/Documents/wcworkspace/miniHabit/ohayo",
   "exec_mode":"fork",
-  "exec_interpreter":"php"
+  "exec_interpreter":"php",
+  "env":{
+    "ENV":"local",
+    "CONFIG_PATH":"/Users/chengxiaoli/Documents/wcworkspace/miniHabit/config.toml"
+  }
 }
