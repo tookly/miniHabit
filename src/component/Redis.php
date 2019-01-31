@@ -15,10 +15,6 @@ class Redis
     
     private static $instance = [];
     
-    private static $tryTimes;
-    
-    private static $tryTimesLimit = 100;
-    
     public static function getConfig($name, array $config = [])
     {
         if (empty(self::$config[$name])) {
