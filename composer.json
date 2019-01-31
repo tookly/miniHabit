@@ -8,7 +8,8 @@
         "leonelquinteros/php-toml": "*"
     },
     "require-dev": {
-        "copyrenzhe/phptaf-ide-helper": "dev-master"
+        "copyrenzhe/phptaf-ide-helper": "dev-master",
+        "phpunit/phpunit": "^7"
     },
     "autoload": {
         "classmap": [
