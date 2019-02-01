@@ -7,6 +7,7 @@
  */
 
 //use Swoole\Coroutine;
+use component\Code;
 use component\Config;
 use component\Exception;
 
@@ -42,6 +43,9 @@ class Application
         return new self();
     }
     
+    /**
+     *
+     */
     public function run()
     {
         $httpMethod = $this->request->server['request_method'];

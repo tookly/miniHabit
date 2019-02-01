@@ -13,6 +13,8 @@ class Response extends \Swoole\Http\Response
      */
     public $source;
     
+    public $data;
+    
     public function __construct($response)
     {
         $this->source = $response;
@@ -20,6 +22,7 @@ class Response extends \Swoole\Http\Response
     
     public function send($data)
     {
+        $this->data = $data;
         $this->source->end(json_encode($data));
     }
     

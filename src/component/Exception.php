@@ -15,7 +15,7 @@ class Exception extends \Exception
     {
         if (is_array($code)) {
             $code = $code[0];
-            $message = $message ? $code[1] . '(' . $message . ')' : $code[1];
+            $message = $message ?: $code[1];
         }
         parent::__construct($message, $code);
     }

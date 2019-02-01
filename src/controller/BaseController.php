@@ -7,7 +7,8 @@
  */
 namespace controller;
 
-use Code;
+
+use component\Code;
 
 class BaseController
 {
@@ -21,18 +22,28 @@ class BaseController
      */
     public $response;
     
-    public function __construct($request, $response)
+    public function __construct(\Request $request, \Response $response)
     {
         $this->request = $request;
         $this->response = $response;
     }
     
-    public function get($key, $default = null)
+    public function setGet($key, $value)
+    {
+        $this->request->get[$key] = $value;
+    }
+    
+    public function setPost($key, $value)
+    {
+        $this->request->post[$key] = $value;
+    }
+    
+    public function getGet($key, $default = null)
     {
         return $this->request->get[$key] ?? $default;
     }
     
-    public function post($key, $default = null)
+    public function getPost($key, $default = null)
     {
         return $this->request->post[$key] ?? $default;
     }

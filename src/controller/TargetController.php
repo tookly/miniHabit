@@ -15,13 +15,14 @@ class TargetController extends BaseController
     const TARGET_KEY = 'HASH:TARGET:%s';
     const TARGET_NOTE_KEY = 'LIST:TARGET:NOTE:%s';
     const TARGET_SIGN_KEY = 'ZSET:TARGET:SIGN:%s';
+    const TARGET_SIGN_LOG_KEY = 'LIST:TARGET:SIGN:LOG:%s:%s'; // 最好还是落db，先不加了
     
     /**
      * @throws \exception
      */
     public function info()
     {
-        $targetId = $this->get('targetId');
+        $targetId = $this->getGet('targetId');
         $data = Redis::instance()->hGetAll(sprintf(self::TARGET_KEY, $targetId)) ?: [];
         $this->sendSuccess($data);
     }
@@ -31,12 +32,12 @@ class TargetController extends BaseController
      */
     public function set()
     {
-        $data['target'] = $this->post('target');
-        if (empty($data['target'])) {
+        $data['target'] = $this->getPost('target');
+        $data['targetId'] = $this->getPost('targetId');
+        if (empty($data['target']) || $data['targetId'] <= 0) {
             $this->sendParamErr();
         }
-        $data['targetId'] = ($targetId = 1);
-        Redis::instance()->hMSet(sprintf(self::TARGET_KEY, $targetId), $data);
+        Redis::instance()->hMSet(sprintf(self::TARGET_KEY, $data['targetId']), $data);
         $this->sendSuccess($data);
     }
     
@@ -45,8 +46,17 @@ class TargetController extends BaseController
      */
     public function notes()
     {
-        $targetId = $this->get('targetId');
-        $data['lines'] = Redis::instance()->lRange(sprintf(self::TARGET_NOTE_KEY, $targetId), 0, -1);
+        $targetId = $this->getGet('targetId');
+        $lines = Redis::instance()->lRange(sprintf(self::TARGET_NOTE_KEY, $targetId), 0, -1);
+        $notes = [];
+        foreach ($lines as $line) {
+            $note = json_decode($line, true);
+            if (empty($note) || empty($note['line'] || empty($note['dateline']))) {
+                continue;
+            }
+            $notes[] = $note;
+        }
+        $data['notes'] = $notes;
         $this->sendSuccess($data);
     }
     
@@ -55,12 +65,13 @@ class TargetController extends BaseController
      */
     public function note()
     {
-        $targetId = $this->post('targetId');
-        $line = $this->post('line');
-        if (empty($line)) {
+        $targetId = $this->getPost('targetId');
+        $note = $this->getPost('note');
+        if (empty($note) || $targetId <= 0) {
             $this->sendParamErr();
         }
-        Redis::instance()->rPush(sprintf(self::TARGET_NOTE_KEY, $targetId), $line);
+        $line = json_encode(['note' => $note, 'dateline' => time()]);
+        Redis::instance()->lPush(sprintf(self::TARGET_NOTE_KEY, $targetId), $line);
         $this->sendSuccess();
     }
     
@@ -69,20 +80,26 @@ class TargetController extends BaseController
      */
     public function sign()
     {
-        $targetId = $this->post('targetId');
-        $unit = $this->post('unit');
-        if (empty($line)) {
+        $targetId = $this->getPost('targetId');
+        $unit = $this->getPost('unit', 1);
+        if ($targetId <= 0) {
             $this->sendParamErr();
         }
-        $signKey = sprintf(self::TARGET_SIGN_KEY, $targetId);
         $date = date('Ymd', time());
-        Redis::instance()->zIncrBy($signKey, $unit, $date);
-        $this->sendSuccess();
+        $data['count'] = Redis::instance()->zIncrBy(sprintf(self::TARGET_SIGN_KEY, $targetId), $unit, $date);
+        
+        // todo log
+        $log['targetId'] = $targetId;
+        $log['unit'] = $unit;
+        $log['dateline'] = time();
+        Redis::instance()->lpush(sprintf(self::TARGET_SIGN_LOG_KEY, $targetId, $date), json_encode($log));
+        
+        $this->sendSuccess($data);
     }
     
     public function statistics()
     {
-        $targetId = $this->post('targetId');
+        $targetId = $this->getPost('targetId');
     }
     
 }

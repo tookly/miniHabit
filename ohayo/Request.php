@@ -18,4 +18,5 @@ class Request extends \Swoole\Http\Request
             $this->{$key} = $value;
         }
     }
+    
 }

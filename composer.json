@@ -17,7 +17,7 @@
             "src/component/Config.php"
         ],
         "psr-4": {
-            "": ["src/", "ohayo/"]
+            "": ["src/", "ohayo/", "tests/"]
         }
     }
 }
